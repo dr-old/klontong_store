@@ -1,17 +1,32 @@
-# klontong_store
+# Klontong Store
 
-A new Flutter project.
+## Overview
+Provide a brief overview of your project here. Describe what it does, the main features, and any other relevant information.
+
+## Technologies Used
+- **Flutter sdk**: ^3.5.2
 
 ## Getting Started
+To get a local copy up and running follow these simple steps.
 
-This project is a starting point for a Flutter application.
+### Installation
+1. Clone the repo
+```sh
+https://github.com/dr-old/klontong_store
+```
+2. Navigate to the project directory
+```sh
+cd klontong_store
+```
+3. Install dependencies with flutter
+```sh
+flutter pub get
+```
 
-A few resources to get you started if this is your first Flutter project:
+### Running the Project
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+To start the project must be with credentials, run:
+```sh
+flutter run --dart-define-from-file=credentials.json
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# klontong_store
