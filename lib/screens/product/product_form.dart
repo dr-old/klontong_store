@@ -140,10 +140,7 @@ class _ProductFormState extends State<ProductForm> {
         listener: (context, state) {
           if (state is ProductSuccess) {
             if (widget.isEditing) {
-              Navigator.of(context).popAndPushNamed(
-                '/productDetail',
-                arguments: {"product": widget.product},
-              );
+              Navigator.of(context).popAndPushNamed('/');
             } else {
               Navigator.of(context).pop();
             }

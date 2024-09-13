@@ -19,7 +19,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool _isLoadingMore = false;
   bool _isSearching = false;
-  bool _isGridView = true;
+  bool _isGridView = false;
 
   @override
   void initState() {
@@ -96,9 +96,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 decoration: InputDecoration(
                   hintStyle: Theme.of(context).textTheme.bodyMedium,
                   hintText: 'Search...',
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.search,
-                    color: Colors.black38,
+                    color: Theme.of(context).hintColor,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
