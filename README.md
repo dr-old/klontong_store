@@ -29,4 +29,3 @@ To start the project must be with credentials, run:
 ```sh
 flutter run --dart-define-from-file=credentials.json
 ```
-

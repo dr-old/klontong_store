@@ -6,6 +6,7 @@ import 'package:klontong_store/repositories/menu_repository.dart';
 import 'package:klontong_store/screens/product/product_card.dart';
 import 'package:klontong_store/screens/product/product_form.dart';
 import 'package:klontong_store/screens/product/product_tile.dart';
+import 'package:klontong_store/utils/theme.dart';
 import '../../blocs/product_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_shouldFocus) {
         _searchFocusNode.requestFocus();
-        print('object');
       }
     });
   }
@@ -94,14 +94,24 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    '/productList',
+                    arguments: {'category': ''},
+                  );
+                  setState(() {
+                    _shouldFocus = true;
+                  });
+                },
+                readOnly: true,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Theme.of(context).cardColor,
                   hintStyle: Theme.of(context).textTheme.bodyMedium,
                   hintText: 'Search...',
-                  suffixIcon: const Icon(
+                  suffixIcon: Icon(
                     Icons.search,
-                    color: Colors.black38,
+                    color: Theme.of(context).hintColor,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
@@ -117,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     ...menuItems.map((menuItem) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 16.0),
@@ -146,7 +156,11 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocBuilder<ProductBloc, ProductState>(
               builder: (context, state) {
                 if (state is ProductLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                      child: Padding(
+                    padding: EdgeInsets.only(top: 100),
+                    child: CircularProgressIndicator(),
+                  ));
                 } else if (state is ProductLoaded) {
                   final List<Product> products = state.products;
 
@@ -189,6 +203,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<ThemeCubit>().toggleTheme();
+        },
+        child: const Icon(
+          Icons.brightness_4_outlined,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
@@ -202,21 +225,23 @@ class _HomeScreenState extends State<HomeScreen> {
             left,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                '/productList',
-                arguments: {'category': ''},
-              );
-              setState(() {
-                _shouldFocus = true;
-              });
-            },
-            child: Text(
-              right,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          )
+          right.isNotEmpty
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      '/productList',
+                      arguments: {'category': ''},
+                    );
+                    setState(() {
+                      _shouldFocus = true;
+                    });
+                  },
+                  child: Text(
+                    right,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                )
+              : Text(right),
         ],
       ),
     );
